@@ -1,0 +1,29 @@
+name: polling
+
+on:
+  schedule:
+    - cron: '*/5 9-23 * * *'    # JST 18:00〜翌08:55
+    - cron: '*/5 0 * * *'       # JST 09:00まで
+  workflow_dispatch:            # 手動実行用（任意）
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        env:
+          URL1: ${{ secrets.URL1 }}
+          URL2: ${{ secrets.URL2 }}
+        run: python main.py

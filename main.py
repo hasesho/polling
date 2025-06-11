@@ -26,11 +26,10 @@ def is_site_up():
         return False
 
 def main():
-    while True:
-        if is_site_up():
-            test("hoge")
-        else:
-            pass
+    if is_site_up():
+        test("hoge")
+    else:
+        pass
 
 if __name__ == "__main__":
     main()
