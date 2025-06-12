@@ -1,5 +1,7 @@
 import requests
 import os
+import xml.etree.ElementTree as ET
+
 
 URL1 = os.environ["URL1"]
 URL2 = os.environ["URL2"]
