@@ -23,7 +23,6 @@ def is_site_up():
         }
         response = requests.get(URL2, headers=headers, timeout=30)
         if response.status_code == 200:
-            print(response.headers.get("Content-Type"))
             xml_data = response.content
             root = ET.fromstring(xml_data)
 
