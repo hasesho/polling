@@ -18,10 +18,22 @@ def is_site_up():
 
     try:
         headers = {
+            "Accept": "application/xml",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
         }
         response = requests.get(URL2, headers=headers, timeout=30)
-        return response.status_code == 200
+        if response.status_code == 200:
+            print(response.headers.get("Content-Type"))
+            xml_data = response.content
+            root = ET.fromstring(xml_data)
+
+            for item in root.findall(".//pagination"):
+                result = item.find("totalResults").text
+                if result == "0":
+                    return False
+                else:
+                    return True
+
     except requests.RequestException as e:
         return False
 
